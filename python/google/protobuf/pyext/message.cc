@@ -1361,6 +1361,7 @@ static PyObject* MergeFromString(CMessage* self, PyObject* arg) {
   AssureWritable(self);
   google::protobuf::io::CodedInputStream input(
       reinterpret_cast<const uint8*>(data), data_length);
+  input.SetTotalBytesLimit(267108864, 267108864); // for large Freeport image data
   input.SetExtensionRegistry(GetDescriptorPool(), global_message_factory);
   bool success = self->message->MergePartialFromCodedStream(&input);
   if (success) {
